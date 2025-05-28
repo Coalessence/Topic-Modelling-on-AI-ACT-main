@@ -4,3 +4,5 @@ __pycache__/
 data.csv
 old/
 .venv/
+bert_plot.html
+bert_topics.csv
