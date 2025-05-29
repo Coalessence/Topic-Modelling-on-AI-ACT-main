@@ -4,9 +4,12 @@ from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM, BitsAndB
 class LanguageModel:
     def __init__(self, model_name=""):
         self.model_name = model_name
-        torch.device = "cuda" if torch.cuda.is_available() else "cpu"
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+            
         print(f"Using device: {torch.device}")
-        self.model = AutoModelForCausalLM.from_pretrained(model_name,  torch_dtype=torch.bfloat16, device_map="auto" ,use_auth_token=True)
+        self.model = AutoModelForCausalLM.from_pretrained(model_name,  torch_dtype=torch.bfloat16,use_auth_token=True)
+        self.model = self.model.to(device)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left") 
         
         if self.tokenizer.chat_template is None:
