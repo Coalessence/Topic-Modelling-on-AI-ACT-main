@@ -48,8 +48,6 @@ class LanguageModel:
     def generate_text(self, max_length=100, data=None):
         message = self.generate_chat(data)
         
-        print(message)
-        
         tokenized_chat = self.tokenizer.apply_chat_template(message, tokenize=True, add_generation_prompt=True, return_tensors="pt")
-        outputs = self.model.generate(tokenized_chat, max_new_tokens=128) 
+        outputs = self.model.generate(tokenized_chat, max_new_tokens=512) 
         print(self.tokenizer.decode(outputs[0]))
