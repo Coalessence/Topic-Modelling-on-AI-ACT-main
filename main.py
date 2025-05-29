@@ -80,8 +80,8 @@ def ldaf(data):
     lda= LDA(data)
     lda.plot_top_words("LDA Topics")
 
-def language_model(data):
-    lm = LanguageModel(model_name="meta-llama/Llama-3.3-70B-Instruct")
+def language_model(data, model_name="meta-llama/Llama-3.3-70B-Instruct"):
+    lm = LanguageModel(model_name)
     print("Chat generated for language model.")
     text = lm.generate_text(max_length=512, data=data)
     print("Generated text:", text)
@@ -91,9 +91,7 @@ def main():
     login(token=os.getenv("HuggingFace_API_KEY"))
     data = get_data()
     
-    
-    
-    
+    language_model(data)
     
     
 if __name__ == "__main__":

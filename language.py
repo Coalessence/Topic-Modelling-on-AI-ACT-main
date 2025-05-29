@@ -1,12 +1,17 @@
 import torch
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 class LanguageModel:
     def __init__(self, model_name=""):
         self.model_name = model_name
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.pipe = pipeline("text-generation", model=self.model_name, torch_dtype=torch.bfloat16, device_map="auto" ,use_auth_token=True)
-
+        torch.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(f"Using device: {torch.device}")
+        self.model = AutoModelForCausalLM.from_pretrained(model_name,  torch_dtype=torch.bfloat16, device_map="auto" ,use_auth_token=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left") 
+        
+        if self.tokenizer.chat_template is None:
+            self.tokenizer.chat_template = "{% for message in messages %}{% if message['role'] == 'system' %}{{ message['content'] + '\n\n' }}{% elif message['role'] == 'user' %}{{ 'User: ' + message['content'] + '\n' }}{% elif message['role'] == 'assistant' %}{{ 'Assistant: ' + message['content'] + '\n' }}{% endif %}{% endfor %}Assistant:"
+        
     def generate_chat(self, data):
         new_data = []
         for index, item in enumerate(data):
@@ -37,6 +42,10 @@ class LanguageModel:
         return chat
     
     def generate_text(self, max_length=100, data=None):
-        prompt = self.generate_chat(data)
+        message = self.generate_chat(data)
         
-        return self.pipe(prompt, max_new_tokens=max_length)[0]['generated_text'][-1]["content"]
+        print(message)
+        
+        tokenized_chat = self.tokenizer.apply_chat_template(message, tokenize=True, add_generation_prompt=True, return_tensors="pt")
+        outputs = self.model.generate(tokenized_chat, max_new_tokens=128) 
+        print(self.tokenizer.decode(outputs[0]))
