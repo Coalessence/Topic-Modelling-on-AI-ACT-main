@@ -9,7 +9,7 @@ class LanguageModel:
             device = torch.device("cuda")
             
         print(f"Using device: {torch.device}")
-        self.model = AutoModelForCausalLM.from_pretrained(model_name,  torch_dtype=torch.bfloat16,use_auth_token=True)
+        self.model = AutoModelForCausalLM.from_pretrained(model_name,  torch_dtype=torch.bfloat16,use_auth_token=True, use_flash_attention_2=True)
         self.model = self.model.to(device)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left") 
         
