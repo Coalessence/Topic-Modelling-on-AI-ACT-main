@@ -54,7 +54,7 @@ class LanguageModel:
         }
         
         try:
-            response = requests.post(self.api_url, json=payload, timeout=180)
+            response = requests.post(self.api_url, json=payload, timeout=100000)
             response.raise_for_status()
             
             result = response.json()
