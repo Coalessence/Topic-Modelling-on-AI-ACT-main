@@ -45,7 +45,11 @@ class LanguageModel:
             "model": self.model_name,
             "prompt": prompt,
             "stream": False,
-            "format": "json"
+            "format": "json",
+            "options": {
+                "seed": 42,
+                "num_ctx": 65535
+            }
         }
         
         try:
