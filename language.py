@@ -48,7 +48,7 @@ class LanguageModel:
             "format": "json",
             "options": {
                 "seed": 42,
-                "num_ctx": 65535
+                "num_ctx": 49152
             }
         }
         
