@@ -111,6 +111,7 @@ class LanguageModel:
         print("Querying Ollama model...")
         response = self.query_ollama(prompt)
         
+        print("Response received from model", response)
         # Parse response
         print("Parsing response...")
         topics = self.parse_topic_response(response)
