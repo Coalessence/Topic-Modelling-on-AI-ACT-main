@@ -1,7 +1,5 @@
 from time import time
-
 import matplotlib.pyplot as plt
-
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
