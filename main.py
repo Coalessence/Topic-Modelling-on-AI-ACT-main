@@ -375,7 +375,7 @@ def ldaf(data):
     lda= LDA(data)
     lda.plot_top_words("LDA Topics")
 
-def language_model(data, model_name="llama3:8b"):
+def language_model(data, model_name="gemma3:27b"):
     lm = LanguageModel(model_name)
     print("Chat generated for language model.")
     text = lm.perform_topic_modeling(data)
