@@ -324,6 +324,7 @@ def save_to_csv(data, filename):
     df[['text']]= df[['text']].astype(str)
     df.to_csv(filename, index=False, header=True, quoting=csv.QUOTE_NONNUMERIC)
     print(f"Data saved to {filename}")
+    return df
     
 def load_data():
     ds = pd.read_csv('data.csv')
@@ -360,8 +361,7 @@ def get_data():
     else:
         print("Fetching data from URL...")
         data = get_data_from_html(get_html("https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689"))
-        save_to_csv(data, "data.csv")
-        return data
+        return save_to_csv(data, "data.csv")
     
     
 def bert_ex(data):
