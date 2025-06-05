@@ -3,7 +3,7 @@ import requests
 from typing import List, Dict, Any
 
 class LanguageModel:
-    def __init__(self, model_name: str = "llama2", base_url: str = "http://localhost:11434"):
+    def __init__(self, model_name: str = "llama3.3:70-128k", base_url: str = "http://localhost:11434"):
         self.model_name = model_name
         self.base_url = base_url
         self.api_url = f"{base_url}/api/generate"
@@ -17,7 +17,7 @@ class LanguageModel:
         Texts to analyze:
         {numbered_texts}
 
-        Please identify the main topics in these texts and return the results in the following JSON format:
+        Please identify the main 7 topics in these texts and return the results in the following JSON format:
         {{
             "topic_1": {{
                 "top_5_words": "comma-separated list of top 5 words for this topic",
@@ -45,8 +45,7 @@ class LanguageModel:
             "model": self.model_name,
             "prompt": prompt,
             "stream": False,
-            "format": "json",
-            "num_ctx": 128000
+            "format": "json"
         }
         
         try:
