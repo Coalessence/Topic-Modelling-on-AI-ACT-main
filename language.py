@@ -49,7 +49,7 @@ class LanguageModel:
             "options": {
                 "seed": 42,
             #    "num_ctx": 49152
-                "num_ctx": 120000
+                "num_ctx": 110000
             }
         }
         
