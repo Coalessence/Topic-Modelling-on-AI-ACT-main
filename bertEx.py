@@ -11,7 +11,7 @@ class BertEx:
     def __init__(self, data=None):
         self.legalbert_model = pipeline("feature-extraction", model="nlpaueb/legal-bert-small-uncased", use_auth_token=True, device="cuda" if torch.cuda.is_available() else "cpu")
         hdbscan_model = HDBSCAN(min_cluster_size=26, metric='euclidean', cluster_selection_method='eom', prediction_data=True)
-        kmeans_model = KMeans(n_clusters=10)
+        kmeans_model = KMeans(n_clusters=7)
         self.topic_model = BERTopic(hdbscan_model=kmeans_model)
         self.model_fit(data) if data is not None else None
 

@@ -8,3 +8,4 @@ bert_plot.html
 bert_topics.csv
 text_analysis_results.txt
 analyze.py
+gpt_results.json

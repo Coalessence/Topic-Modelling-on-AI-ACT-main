@@ -9,7 +9,7 @@ class LanguageModel:
         self.api_url = f"{base_url}/api/generate"
     
     def create_topic_modeling_prompt(self, texts: List[str]) -> str:
-        numbered_texts = "\n".join([f"{i}: {text}" for i, text in enumerate(texts)])
+        numbered_texts = "\n".join([f"{i}: {text[:374]}" for i, text in enumerate(texts)])
         
         prompt = f"""
         Analyze the following texts and perform topic modeling. Group similar texts into topics and return the results in JSON format.
